@@ -17,6 +17,7 @@ class VideoMigration extends Migration
             $table->bigIncrements('id');
             $table->string('title_video', 40);
             $table->string('description_video', 256);
+            $table->string('paths');
             $table->integer('views');
             $table->integer('likes');
             $table->integer('dislikes');
