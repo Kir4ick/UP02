@@ -17,14 +17,4 @@ class UserController extends Controller
         return response()->json('user created', 200);
     }
 
-    public function login(Request $request){
-        $input = $request->all();
-        if(Auth::attempt(['email' => $input['email'], 'password' => $input['password']])){ 
-            $user = User::find(Auth::user()->id); 
-            return response()->json([$user],201);
-        } 
-        else{ 
-            return response()->json(['error'=>true,'massage'=>'User not found'],404);
-        } 
-    }
 }
