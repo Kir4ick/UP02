@@ -14,7 +14,7 @@ class VideoRequest extends ApiRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,10 @@ class VideoRequest extends ApiRequest
     public function rules()
     {
         return [
-            //
+            'title_video' => 'min:4|max:30',
+            'video' => 'mimes:mp4,mov,ogg,qt',
+            'description_video' => 'min:10|max:255',
+            'category' => 'min:1|max:200'
         ];
     }
 }

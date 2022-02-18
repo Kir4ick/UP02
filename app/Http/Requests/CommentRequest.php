@@ -14,7 +14,7 @@ class CommentRequest extends ApiRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class CommentRequest extends ApiRequest
     public function rules()
     {
         return [
-            //
+            'text_comment' => 'min:2|max:200'
         ];
     }
 }

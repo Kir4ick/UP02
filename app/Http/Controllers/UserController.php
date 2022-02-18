@@ -17,4 +17,18 @@ class UserController extends Controller
         return response()->json('user created', 200);
     }
 
+    public function searchUser($user_nickname){
+        $user = User::where('nickname', $user_nickname)->first();
+        return response()->json($user, 200);
+    }
+    
+    public function newAdmin($user_nickname){
+        User::where('nickname', $user_nickname)->update(['roles'=>'admin']);
+        return response()->json(['Новый Админ был добавлен!'], 200);
+    }
+
+    public function downAdmin($user_nickname){
+        User::where('nickname', $user_nickname)->update(['roles'=>'user']);
+        return response()->json(['Пользователь: '.$user_nickname.' перестал быть админом'], 200);
+    } 
 }

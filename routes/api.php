@@ -1,18 +1,11 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+
 Route::post('/registration', [UserController::class, 'registraion']);
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
@@ -22,7 +15,15 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('me', 'AuthController@me');
 });
 
-Route::post('login', function(){
-    return View('welcome');
+Route::middleware(['auth:api'])->group(function () {
+    Route::post('upload', [VideoController::class,'loadVideo']);
+    Route::post('loadcomm/{id}', [CommentController::class, 'loadComment']);
+    Route::middleware(['role'])->group(function () {
+        Route::post('user/{nick}',[UserController::class, 'searchUser']);
+        Route::post('new/{nick}',[UserController::class, 'newAdmin']);
+        Route::post('down/{nick}',[UserController::class, 'downAdmin']);
+    });
+    
 });
+
 

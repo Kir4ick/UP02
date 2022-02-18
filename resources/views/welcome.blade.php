@@ -79,7 +79,7 @@
                 </div>
             @endif
             <div id="app">
-                <component></component>
+                <router-view></router-view>
             </div>
             <div class="content">
                 <div class="title m-b-md">
