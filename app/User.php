@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'nickname', 'email', 'password','avatar','roles'
+        'nickname', 'email', 'password','avatar'
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token','roles'
     ];
 
     public function getJWTIdentifier()
@@ -39,5 +39,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return ['roles'];
+    }
+
+    public static function getVideoByUserName(){
+        
     }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\CommentModel;
 use App\Http\Requests\CommentRequest;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -21,5 +23,10 @@ class CommentController extends Controller
         }else{
             return response()->json(['Успешно'], 200);
         }
+    }
+
+    public function getComments($video_id){
+        $comments = CommentModel::getCommentsByIdVideo($video_id);
+        return response()->json($comments, 200);
     }
 }

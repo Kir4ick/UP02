@@ -11,9 +11,10 @@ class UserController extends Controller
 {
     public function registraion(UserRequest $request)
     {
+        $path = $request->file('avatar')->store('uploads/users', 'public');
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        User::create($input);
+        User::create($input, ['avatar'=>$path]);
         return response()->json('user created', 200);
     }
 
