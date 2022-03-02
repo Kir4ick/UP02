@@ -14,7 +14,8 @@ class UserController extends Controller
         $path = $request->file('avatar')->store('uploads/users', 'public');
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        User::create($input, ['avatar'=>$path]);
+        $input['avatar'] = $path;
+        User::create($input);
         return response()->json('user created', 200);
     }
 
@@ -22,7 +23,7 @@ class UserController extends Controller
         $user = User::where('nickname', $user_nickname)->first();
         return response()->json($user, 200);
     }
-    
+
     public function newAdmin($user_nickname){
         User::where('nickname', $user_nickname)->update(['roles'=>'admin']);
         return response()->json(['Новый Админ был добавлен!'], 200);
@@ -31,5 +32,5 @@ class UserController extends Controller
     public function downAdmin($user_nickname){
         User::where('nickname', $user_nickname)->update(['roles'=>'user']);
         return response()->json(['Пользователь: '.$user_nickname.' перестал быть админом'], 200);
-    } 
+    }
 }

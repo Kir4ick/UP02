@@ -1,0 +1,34 @@
+.menu_wrapper{
+    width: 12vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 8vh;
+    background-color: rgb(24, 23, 23);
+    padding-right: 20px;
+    box-sizing: border-box;
+    z-index: 999;
+    ul {
+        height: 40%;
+        padding-left: 15px;
+        padding-right: 10px;
+    }
+    li{
+        list-style-type: none;
+        margin: 20px 0px;
+        padding: 10px;
+        border-bottom: 1px solid $blue;
+        &+a:hover{
+            color: crimson;
+            cursor: pointer;
+            border-bottom: 1px solid $red;
+        }
+        a{
+            font-size: 2vh;
+            &:hover{
+                color: crimson;
+                cursor: pointer;
+            }
+        }
+    }
+}

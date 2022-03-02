@@ -3,10 +3,16 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import test from './components/test';
+import mainPage from './components/main_page/main-content';
+import profile from './components/profile/profile'
+import adminPanel from "./components/admin/adminPanel";
+import videoPage from "./components/video/video-page";
 
 const router = [
-    {path: '/registration', component: test}
+    {path: '/', component: mainPage},
+    {path: '/me', component: profile },
+    {path: '/admin', component: adminPanel},
+    {path: '/:id', component: videoPage, name: 'video'}
 ]
 export default new VueRouter({
     mode: "history",

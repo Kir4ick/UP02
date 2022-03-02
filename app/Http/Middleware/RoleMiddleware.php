@@ -17,7 +17,7 @@ class RoleMiddleware
     public function handle($request, Closure $next)
     {
         if (auth('api')->user()->roles !== 'admin') {
-            throw new HttpResponseException(response()->json(['Не авторизован'],401));
+            throw new HttpResponseException(response()->json(['Not admin'],401));
         }
         return $next($request);
     }

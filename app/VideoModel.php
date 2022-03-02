@@ -21,4 +21,13 @@ class VideoModel extends Model
         ->get();
         return $comments;
     }
+    public static function getUserInVideo($offset){
+        return $videos = DB::table('video')
+            ->join('users', 'users.id', '=', 'video.user_id')
+            ->offset($offset)
+            ->limit(10)
+            ->where('verificy', 3)
+            ->select(['video.*', 'users.nickname', 'users.avatar', 'users.avatar'])
+            ->get();
+    }
 }

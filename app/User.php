@@ -11,7 +11,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
-    
+
     protected $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'nickname', 'email', 'password','avatar'
+        'nickname', 'email', 'password','avatar','roles'
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','roles'
+        'password', 'remember_token'
     ];
 
     public function getJWTIdentifier()
@@ -42,6 +42,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public static function getVideoByUserName(){
-        
+
     }
 }

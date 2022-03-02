@@ -27,8 +27,7 @@ class UserRequest extends ApiRequest
         return [
             'nickname' => 'min:4|max:50|unique:users|required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:6|max:20',
-            'avatar' => 'mimes:jpeg,jpg,png,gif|required'
+            'password' => 'required|confirmed|min:6|max:20'
         ];
     }
 }

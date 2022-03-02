@@ -1,0 +1,154 @@
+.profile{
+    position: absolute;
+    left: 0;right: 0;
+    top: 200px;
+    padding: 50px;
+    z-index: -1;
+    .title{
+        color: $blue;
+        text-align: center;
+        margin-top: 40px;
+        font-size: 50px;
+    }
+    .video_carts{
+        padding-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+.user_information{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .information{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 50%;
+    }
+    .user__avatar{
+        width: 400px;
+        border-radius: 30px;
+    }
+    .user_data{
+        text-align: right;
+        color: $blue;
+        h1{
+            font-size: 100px;
+        }
+        p{
+            margin-top: 0px;
+        }
+    }
+
+    button{
+        z-index: 2;
+        background: transparent;
+        border: 2px solid $red;
+        border-radius: 35px;
+        color: white;
+        width: 150px;
+        height: 120px;
+        font-size: 18px;
+        &:hover{
+            border: 2px solid $blue;
+            cursor: pointer;
+            color: $blue;
+        }
+    }
+}
+
+.load{
+    width: 800px;
+    height: 500px;
+    box-shadow: 6px 6px 30px $blue;
+    position: fixed;
+    margin: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-color: $black;
+    padding: 30px;
+    h2{
+        color: $blue;
+        margin-top: 20px;
+        text-align: center;
+    }
+    .krest{
+        position: absolute;
+        top: 20px; right: 20px;
+        width: 30px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    form{
+        button{
+            width: 20%;
+            height: 2.5em;
+            font-size: 16px;
+            background: transparent;
+            border: 2px solid #45bddf;
+            border-radius: 35px;
+            color: white;
+            &:hover{
+                border: 2px solid crimson;
+                cursor: pointer;
+                color: crimson;
+            }
+        }
+        text-align: right;
+        margin-top: 30px;
+        height: 60%;
+        .main_form{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            .video_load{
+                width: 50%;
+                height: 100%;
+                h3{
+                    margin-top: 30px;
+                    color: $blue;
+                    text-align: left;
+                    width: 100%;
+                }
+                input{
+                    margin-top: 10px;
+                    color: $blue;
+                    margin-right: 100px;
+                }
+            }
+            .drag_zone{
+                width: 80%;
+                background-color: white;
+                border: 4px dashed #45bddfb3;
+                text-align: center;
+                color: #45bddfb3;
+                font-size: 20px;
+                height: 60%;
+            }
+            .video_inputs{
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 45%;
+                input{
+                    width: 100%;
+                    margin: 30px 0px;
+                    background: transparent;
+                    margin-top: 0px;
+                    border: none;
+                    border-bottom: 2px solid #45bddf;
+                    padding: 10px;
+                    box-sizing: border-box;
+                    font-size: 16px;
+                    color: white;
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+}

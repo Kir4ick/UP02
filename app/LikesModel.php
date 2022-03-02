@@ -14,7 +14,8 @@ class LikesModel extends Model
 
     public $timestamps = false;
 
-    public static function get($video_id){
-        return Self::where('video_id', $video_id)->where('user_id', auth('api')->id())->first();
+    public static function getLikes($video_id){
+        $poles = Self::where('video_id', $video_id)->where('user_id', auth('api')->id())->first();
+        return $poles;
     }
 }

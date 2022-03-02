@@ -51,21 +51,21 @@ class VideoController extends Controller
     }
 
     public function getVideo($offset){
-        $videos = VideoModel::offset($offset)->limit(10)->where('verificy', 3)->get();
+        $videos = VideoModel::getUserInVideo($offset);
         return response()->json($videos, 200);
     }
 
     public function getVideoById($id){
         $video = VideoModel::find($id);
-        $user = User::find($video->user_id); 
+        $user = User::find($video->user_id);
         if($video === null){
             return response()->json('Нет такого контента', 404);
         }
         return response()->json([$video, $user], 200);
     }
 
-    public function getVideoByVer($offset){
-        $videos = VideoModel::offset($offset)->limit(10)->where('verificy', 1)->get();
+    public function getVideoByVer(){
+        $videos = VideoModel::where('verificy', 1)->get();
         return response()->json($videos, 200);
     }
 
