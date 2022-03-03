@@ -8,6 +8,7 @@
     top: 0; left: 0; bottom: 0; right: 0;
     background-color: $black;
     box-shadow: 6px 6px 30px $blue;
+    z-index: 99999;
     .head_cont{
         margin-top: 30px;
         text-align: center;

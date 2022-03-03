@@ -11074,6 +11074,7 @@ a.text-dark:focus {
   right: 0;
   background-color: #181717;
   box-shadow: 6px 6px 30px #45bddf;
+  z-index: 99999;
 }
 
 .autorization .head_cont {
@@ -11211,6 +11212,7 @@ a.text-dark:focus {
   right: 0;
   border-radius: 64px 3px;
   box-shadow: 6px 6px 30px #45bddf;
+  z-index: 99999;
 }
 
 .registration .cont {
@@ -11337,14 +11339,9 @@ a.text-dark:focus {
 }
 
 .loader {
-  position: absolute;
-  margin: 0px auto;
-  right: 0;
-  left: 0;
-  z-index: 999;
-  height: 10px;
-  width: 10px;
-  background-color: crimson;
+  height: 1px;
+  width: 1px;
+  background-color: #181717;
 }
 
 .content_cart {

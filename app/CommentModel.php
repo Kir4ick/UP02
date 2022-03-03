@@ -16,7 +16,7 @@ class CommentModel extends Model
     public static function getCommentsByIdVideo($video_id){
         $comments = DB::table('users')
         ->join('comments', 'users.id', '=', 'comments.user_id')->where('comments.video_id' , $video_id)
-        ->select('users.nickname','comments.text_comment', 'comments.created_at')->get();
+        ->select('users.avatar','users.nickname','comments.text_comment', 'comments.created_at')->get();
         return $comments;
     }
 }

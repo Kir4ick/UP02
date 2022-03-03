@@ -13,7 +13,7 @@
             </div>
         </div>
         <div v-if="error" class="errors">
-
+            {{errorList}}
         </div>
     </div>
 </template>
@@ -26,7 +26,7 @@ export default {
           nick: "",
           password: "",
           error:false,
-          errorList:[]
+          errorList:''
       }
     },
     methods:{
@@ -47,7 +47,8 @@ export default {
                location.reload();
                this.$emit('closeAuth');
            }).catch(error =>{
-               this.errorList.push("Неверный логин или пароль")
+               this.errorList = 'Не верный логин или пароль';
+               this.error = true
            });
         }
     }
@@ -61,5 +62,17 @@ export default {
 
 .auth-enter, .auth-leave-to{
     opacity: 0;
+}
+.errors{
+    position: absolute;
+    bottom: -100px;
+    height: 50px;
+    width: 300px;
+    margin: 0px auto;
+    right: 0; left: 0;
+    text-align: center;
+    padding-top: 10px;
+    background: #dc6464;
+    color: #811414;
 }
 </style>

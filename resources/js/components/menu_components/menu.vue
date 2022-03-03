@@ -4,7 +4,6 @@
             <router-link to="/"><li>Главная</li></router-link>
             <router-link to="me"><li>Аккаунт</li></router-link>
             <router-link to="likes"><li>Понравившиеся</li></router-link>
-            <router-link to="category"><li>Игры</li></router-link>
         </ul>
     </div>
 </template>

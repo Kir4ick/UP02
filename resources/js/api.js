@@ -21,17 +21,17 @@ api.interceptors.response.use(
         return config;
     },
     error => {
-        axios.post('api/auth/refresh', {}, {
-            headers:{
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        }).then(response => {
-            console.log(response);
-            localStorage.setItem('accessToken', response.data.access_token);
-            error.config.headers.authorization
-                = `Bearer ${response.data.access_token}`;
-            return api.request(error.config);
-        })
+        // axios.post('api/auth/refresh', {}, {
+        //     headers:{
+        //         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        //     }
+        // }).then(response => {
+        //     console.log(response);
+        //     localStorage.setItem('accessToken', response.data.access_token);
+        //     error.config.headers.authorization
+        //         = `Bearer ${response.data.access_token}`;
+        //     return api.request(error.config);
+        // })
 
     }
 );

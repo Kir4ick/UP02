@@ -7,10 +7,10 @@
                     :key = "video.id"
                     v-bind:video = "video"
                 ></video_cart>
-            </div>
-        </div>
-        <div class="loader">
+                <div class="loader">
 
+                </div>
+            </div>
         </div>
     </main>
 </template>
@@ -46,10 +46,10 @@ export default {
                 entries.forEach(entry=>{
                     if (entry.isIntersecting) {
                         if (this.offset > 100) {
-                            return
+                            return;
                         }
                         setTimeout(() => {
-                            this.offset+=10;
+                            this.offset += 10;
                             axios.get('api/videos/' + this.offset).
                             then(response => {this.content.push(...response.data)});
                         }, 1000)

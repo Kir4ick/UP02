@@ -4,8 +4,8 @@
             <source :src="'../storage/' + video.path">
         </video>
         <div class="info_cart">
-            <button @click = 'banned' >Выложить</button>
-            <button @click = 'passed'>Забанить</button>
+            <button @click = 'passed' >Выложить</button>
+            <button @click = 'banned'>Забанить</button>
             <button @click = 'bannedTen'>Теневой бан</button>
         </div>
     </div>

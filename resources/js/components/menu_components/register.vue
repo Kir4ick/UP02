@@ -29,7 +29,11 @@
             </div>
         </div>
         <div v-if="error" class="error_table">
-
+            <ul>
+                <li
+                    v-for="error in errorList"
+                >{{error}}</li>
+            </ul>
         </div>
     </div>
 </template>
@@ -73,11 +77,23 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(res => {
-                    console.log(res);
                     if(res.data.errors){
+                        this.errorList = [];
                         this.error = true;
+                        for (let error of Object.values(res.data.errors)) {
+                            console.log(error.length)
+                            if(error.length >= 2){
+                                for (let errorElement of error) {
+                                    this.errorList.push(errorElement.toString());
+                                }
+                                continue;
+                            }
+                            this.errorList.push(error.toString());
+                        }
+
                     }else{
-                        this.innerHTML = 'Успешно!'
+                        alert('Успешно!');
+                        this.openAuth();
                     }
                 })
             }
@@ -92,12 +108,20 @@ export default {
             pas_conf: '',
             nick:'',
             email:'',
-            error: false
+            error: false,
+            errorList: []
         }
     }
 }
 </script>
 
 <style scoped>
-
+.error_table{
+    position: absolute;
+    bottom: -120px;
+    padding: 20px;
+    background: #dc6464;
+    color: #811414;
+    width: 100%;
+}
 </style>

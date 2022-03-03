@@ -36,7 +36,7 @@ class VideoController extends Controller
     }
 
     public function banned($video_id){
-        VideoModel::where('id', $video_id)->update(['verificy'=> 0]);
+        VideoModel::where('id', $video_id)->delete();
         return response()->json(['Ролик был забанен']);
     }
 
@@ -46,7 +46,7 @@ class VideoController extends Controller
     }
 
     public function passed($video_id){
-        VideoModel::where('id', $video_id)->update(['verificy'=> 3]);
+        VideoModel::where('id', $video_id)->update(['verificy' => 3]);
         return response()->json(['Ролик был выложен']);
     }
 
@@ -65,12 +65,17 @@ class VideoController extends Controller
     }
 
     public function getVideoByVer(){
-        $videos = VideoModel::where('verificy', 1)->get();
+        $videos = VideoModel::get();
         return response()->json($videos, 200);
     }
 
     public function getVideoByUserName($user_nickname){
         $video = VideoModel::getVideoByUserNickname($user_nickname);
         return response()->json($video, 200);
+    }
+
+    public function View($video_id){
+        $view = VideoModel::find($video_id)->views;
+        VideoModel::where('id', $video_id)->update(['views'=>$view + 1]);
     }
 }

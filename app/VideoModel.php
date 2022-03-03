@@ -27,6 +27,7 @@ class VideoModel extends Model
             ->offset($offset)
             ->limit(10)
             ->where('verificy', 3)
+            ->orderBy('created_at', 'DESC')
             ->select(['video.*', 'users.nickname', 'users.avatar', 'users.avatar'])
             ->get();
     }

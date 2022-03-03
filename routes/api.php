@@ -13,6 +13,7 @@ Route::get('comments/{video_id}', [CommentController::class, 'getComments']);
 Route::get('user/{nick}',[UserController::class, 'searchUser']);
 Route::get('rating/{video_id}', [LikesController::class, 'getRating']);
 Route::get('videobyuser/{user_nick}', [VideoController::class, 'getVideoByUserName']);
+Route::put('view/{video_id}',[VideoController::class, 'View']);
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('login', 'AuthController@login');
@@ -21,7 +22,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('me', 'AuthController@me');
 });
 
-Route::middleware(['jwt.auth'])->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::post('upload', [VideoController::class,'loadVideo']);
     Route::post('loadcomm/{id}', [CommentController::class, 'loadComment']);
     Route::post('like/{video_id}', [LikesController::class, 'likes']);
