@@ -4,6 +4,7 @@
             v-for="video in video"
             :key = "video.id"
             v-bind:video = "video"
+            @deleteVideo = "deleteVideo"
         ></video-cart-admin>
     </div>
 </template>
@@ -29,10 +30,15 @@ export default {
         return{
             video: {}
         }
+    },
+    methods:{
+        deleteVideo(){
+            this.video.shift();
+        }
     }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

@@ -30,12 +30,14 @@ export default {
         }
     },
     mounted(){
-        document.body.style.paddingTop = 400 + 'px';
+        let width = document.body.clientWidth;
+        width = (0.012 * width);
+        document.body.style.paddingTop = 25 + 'vh';
         document.body.style.background = 'url("../img/background.jpg")';
         document.body.style.backgroundAttachment = 'fixed';
         document.body.style.backgroundRepeat = 'no-repeat';
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPositionY = -150 + 'px';
+        document.body.style.backgroundSize = 100 + '%';
+        document.body.style.backgroundPositionY = -5 * width  + 'px';
         this.loadScroll();
         axios.get('api/videos/' + this.offset).
         then(response => {this.content.push(...response.data)});
@@ -51,7 +53,13 @@ export default {
                         setTimeout(() => {
                             this.offset += 10;
                             axios.get('api/videos/' + this.offset).
-                            then(response => {this.content.push(...response.data)});
+                            then(response => {
+                                if(response.data === []){
+                                    return;
+                                }else{
+                                    this.content.push(...response.data)
+                                }
+                            });
                         }, 1000)
                     }
                 })

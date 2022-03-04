@@ -1932,6 +1932,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1953,6 +1954,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       video: {}
     };
+  },
+  methods: {
+    deleteVideo: function deleteVideo() {
+      this.video.shift();
+    }
   }
 });
 
@@ -1982,6 +1988,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "video-cart-admin",
@@ -1992,22 +1999,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     banned: function banned() {
+      var _this = this;
+
       _api__WEBPACK_IMPORTED_MODULE_0__["default"].put('api/banned/' + this.video.id).then(function (response) {
         alert('Успешно!');
-        location.reload();
+
+        _this.$emit('deleteVideo');
       });
     },
     passed: function passed() {
       _api__WEBPACK_IMPORTED_MODULE_0__["default"].put('api/passed/' + this.video.id).then(function (response) {
         alert('Успешно!');
-        location.reload();
       });
     },
     bannedTen: function bannedTen() {
       _api__WEBPACK_IMPORTED_MODULE_0__["default"].put('api/bannedTen/' + this.video.id).then(function (response) {
         alert('Успешно!');
-        location.reload();
       });
+    },
+    ver: function ver() {
+      switch (this.video.verificy) {
+        case 1:
+          return 'Видео в обработке';
+
+        case 2:
+          return 'Видео в теневом бане';
+
+        case 3:
+          return 'На видео нет ограничений';
+      }
     }
   }
 });
@@ -2167,12 +2187,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   mounted: function mounted() {
     var _this = this;
 
-    document.body.style.paddingTop = 400 + 'px';
+    var width = document.body.clientWidth;
+    width = 0.012 * width;
+    document.body.style.paddingTop = 25 + 'vh';
     document.body.style.background = 'url("../img/background.jpg")';
     document.body.style.backgroundAttachment = 'fixed';
     document.body.style.backgroundRepeat = 'no-repeat';
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPositionY = -150 + 'px';
+    document.body.style.backgroundSize = 100 + '%';
+    document.body.style.backgroundPositionY = -5 * width + 'px';
     this.loadScroll();
     axios.get('api/videos/' + this.offset).then(function (response) {
       var _this$content;
@@ -2194,9 +2216,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             setTimeout(function () {
               _this2.offset += 10;
               axios.get('api/videos/' + _this2.offset).then(function (response) {
-                var _this2$content;
+                if (response.data === []) {
+                  return;
+                } else {
+                  var _this2$content;
 
-                (_this2$content = _this2.content).push.apply(_this2$content, _toConsumableArray(response.data));
+                  (_this2$content = _this2.content).push.apply(_this2$content, _toConsumableArray(response.data));
+                }
               });
             }, 1000);
           }
@@ -2333,7 +2359,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -18514,10 +18539,10 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&scoped=true&":
-/*!********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18533,7 +18558,11 @@ var render = function () {
     "div",
     { staticClass: "admin_panel" },
     _vm._l(_vm.video, function (video) {
-      return _c("video-cart-admin", { key: video.id, attrs: { video: video } })
+      return _c("video-cart-admin", {
+        key: video.id,
+        attrs: { video: video },
+        on: { deleteVideo: _vm.deleteVideo },
+      })
     }),
     1
   )
@@ -18561,6 +18590,8 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content_cart" }, [
+    _c("h2", [_vm._v(_vm._s(_vm.ver()))]),
+    _vm._v(" "),
     _c("video", { attrs: { controls: "controls" } }, [
       _c("source", { attrs: { src: "../storage/" + _vm.video.path } }),
     ]),
@@ -18972,10 +19003,6 @@ var render = function () {
         _vm._v(" "),
         _c("router-link", { attrs: { to: "me" } }, [
           _c("li", [_vm._v("Аккаунт")]),
-        ]),
-        _vm._v(" "),
-        _c("router-link", { attrs: { to: "likes" } }, [
-          _c("li", [_vm._v("Понравившиеся")]),
         ]),
       ],
       1
@@ -56885,7 +56912,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _adminPanel_vue_vue_type_template_id_99887b00_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./adminPanel.vue?vue&type=template&id=99887b00&scoped=true& */ "./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&scoped=true&");
+/* harmony import */ var _adminPanel_vue_vue_type_template_id_99887b00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./adminPanel.vue?vue&type=template&id=99887b00& */ "./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&");
 /* harmony import */ var _adminPanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adminPanel.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/adminPanel.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -56897,11 +56924,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _adminPanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _adminPanel_vue_vue_type_template_id_99887b00_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _adminPanel_vue_vue_type_template_id_99887b00_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _adminPanel_vue_vue_type_template_id_99887b00___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _adminPanel_vue_vue_type_template_id_99887b00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "99887b00",
+  null,
   null
   
 )
@@ -56927,19 +56954,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&scoped=true&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&scoped=true& ***!
-  \*************************************************************************************************/
+/***/ "./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00& ***!
+  \*************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_adminPanel_vue_vue_type_template_id_99887b00_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./adminPanel.vue?vue&type=template&id=99887b00&scoped=true& */ "./node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_laravel_mix_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_adminPanel_vue_vue_type_template_id_99887b00_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_adminPanel_vue_vue_type_template_id_99887b00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./adminPanel.vue?vue&type=template&id=99887b00& */ "./node_modules/laravel-mix/node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/adminPanel.vue?vue&type=template&id=99887b00&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_laravel_mix_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_adminPanel_vue_vue_type_template_id_99887b00___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_laravel_mix_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_adminPanel_vue_vue_type_template_id_99887b00_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_laravel_mix_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_adminPanel_vue_vue_type_template_id_99887b00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
