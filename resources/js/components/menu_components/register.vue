@@ -90,9 +90,7 @@ export default {
                             }
                             this.errorList.push(error.toString());
                         }
-
                     }else{
-                        alert('Успешно!');
                         this.openAuth();
                     }
                 })

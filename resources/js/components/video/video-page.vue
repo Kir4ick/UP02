@@ -18,9 +18,8 @@
                 </div>
                 <div class="likes_and_dislikes">
                     <h3 >Просмотров: {{video.views}}</h3>
-                    <h3 v-if="!auth">Был ли обзор полезен для вас?</h3>
-                    <h3 v-if="auth">Оценки обзора</h3>
-                    <div class="conteiner_like">
+                    <h3 v-if="auth">Был ли обзор полезен для вас?</h3>
+                    <div v-if="auth" class="conteiner_like">
                         <div >
                             <button id="like" @click ='like'>Да</button>
                             <p>{{rating.likes}}</p>
@@ -69,7 +68,7 @@ export default {
         this.getLikes();
         this.getComments();
         this.newView();
-        if(!localStorage.getItem('accessToken')){
+        if(localStorage.getItem('accessToken')){
             this.auth = true;
             like.style.color = 'grey';
             like.setAttribute('disabled', true);
